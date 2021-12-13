@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { CreditCardIcon } from '@heroicons/react/solid';
 import { UISelect } from '../shared/ui/ui-select';
+import { UICheckbox } from '../shared/ui/ui-checkbox';
 
 export const App = () => {
   const {
@@ -57,6 +58,9 @@ export const App = () => {
               </div>
               <div className='col-span-6'>
                 <UIInput label='Password' name='password' register={register} />
+              </div>
+              <div className='col-span-6'>
+                <UICheckbox name='typeChecked' control={control} />
               </div>
               <div className='col-span-6'>
                 <UISelect
