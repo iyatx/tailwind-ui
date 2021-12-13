@@ -1,0 +1,19 @@
+.label {
+    @apply block text-sm font-medium text-gray-700;
+}
+
+.field {
+    @apply px-2 py-2 block w-full pr-10 border focus:outline-none sm:text-sm rounded-md;
+}
+
+.fieldWrapper {
+    @apply mt-1 relative rounded-md shadow-sm;
+}
+
+.icon {
+    @apply absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-red-500;
+}
+
+.error {
+    @apply mt-2 text-sm text-red-600;
+}
