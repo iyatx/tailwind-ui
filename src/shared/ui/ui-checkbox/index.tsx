@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Switch } from '@headlessui/react';
 import classNames from 'classnames';
 import { Control, useController } from 'react-hook-form';
