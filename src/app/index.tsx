@@ -12,12 +12,14 @@ export const App = () => {
     handleSubmit,
     setError,
     control,
+    clearErrors,
     formState: { errors },
   } = useForm();
 
   const submit = (data: any) => {
     console.log(data);
     setError('name', { message: 'Что-то пошло не так, измените поле!' });
+    setError('role', { message: 'Что-то пошло не так, измените поле!' });
   };
 
   const options = [
@@ -65,12 +67,15 @@ export const App = () => {
               <div className='col-span-6'>
                 <UISelect
                   options={options}
-                  name='Something'
+                  name='role'
                   control={control}
+                  clearErrors={clearErrors}
                   selectOptions={{
                     isMulti: true,
                   }}
                   defaultOptionValue={[1, 2]}
+                  label='Роль'
+                  errorMessage={errors?.role && errors.role.message}
                 />
               </div>
               <div className='col-span-6'>

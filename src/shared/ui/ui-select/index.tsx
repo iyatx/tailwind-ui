@@ -1,7 +1,8 @@
 import React from 'react';
-import { Control, Controller } from 'react-hook-form';
-import Select, { Props } from 'react-select';
 import classNames from 'classnames';
+import Select, { Props } from 'react-select';
+import { Control, Controller, UseFormClearErrors } from 'react-hook-form';
+
 import styles from './index.module.css';
 
 type ISelect = {
@@ -14,10 +15,12 @@ type UISelectProps = {
   options: ISelect[];
   name: string;
   control: Control;
+  clearErrors: UseFormClearErrors<any>;
   placeholder?: string;
   defaultOptionValue?: any;
   selectOptions?: Props<any>;
   label?: string;
+  errorMessage?: string;
 };
 
 export const UISelect: React.FC<UISelectProps> = ({
@@ -28,6 +31,8 @@ export const UISelect: React.FC<UISelectProps> = ({
   selectOptions,
   label,
   placeholder = 'Выбрать...',
+  errorMessage,
+  clearErrors,
 }) => {
   const defaultValue = () => {
     if (selectOptions?.isMulti === true) {
@@ -64,7 +69,7 @@ export const UISelect: React.FC<UISelectProps> = ({
   };
 
   return (
-    <>
+    <div>
       <label htmlFor={label} className={styles.label}>
         {label}
       </label>
@@ -73,14 +78,15 @@ export const UISelect: React.FC<UISelectProps> = ({
           name={name}
           control={control}
           defaultValue={defaultValueController()}
-          render={({ field: { onChange } }) => (
+          render={({ field: { onChange }, fieldState: { error }, formState: {} }) => (
             <Select
               id={label}
               defaultValue={defaultValue()}
               options={options}
-              onChange={(val) =>
-                onChange(selectOptions?.isMulti ? val.map((c: ISelect) => c.id) : val.id)
-              }
+              onChange={(val) => {
+                onChange(selectOptions?.isMulti ? val.map((c: ISelect) => c.id) : val.id);
+                clearErrors(name);
+              }}
               getOptionLabel={(option) => option.title || option.title_ru || option.title_uz}
               getOptionValue={(option) => option.id}
               styles={styles}
@@ -94,6 +100,7 @@ export const UISelect: React.FC<UISelectProps> = ({
           )}
         />
       </div>
-    </>
+      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+    </div>
   );
 };
